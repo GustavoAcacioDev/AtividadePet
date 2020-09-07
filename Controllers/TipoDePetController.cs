@@ -26,15 +26,16 @@ namespace AtividadePet.Controllers
 
         // GET api/<TipoDePetController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public TipoDePet Get(int id)
         {
-            return "value";
+            return repo.BuscarPorId(id);
         }
 
         // POST api/<TipoDePetController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public TipoDePet Post([FromBody] TipoDePet t)
         {
+            return repo.Cadastrar(t);
         }
 
         // PUT api/<TipoDePetController>/5

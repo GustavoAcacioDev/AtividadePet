@@ -23,7 +23,24 @@ namespace AtividadePet.Repositories
 
         public Raca BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "SELECT * FROM Raca WHERE IdRaca = @id ";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader dados = cmd.ExecuteReader();
+
+            Raca r = new Raca();
+
+            while (dados.Read())
+            {
+                r.IdRaca = Convert.ToInt32(dados.GetValue(0));
+                r.Descricao = dados.GetValue(1).ToString();
+            }
+
+            cmd.Connection = connection.Desconectar();
+            return r;
         }
 
         public Raca Cadastrar(Raca r)

@@ -27,9 +27,9 @@ namespace AtividadePet.Controllers
 
         // GET api/<RacaController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Raca Get(int id)
         {
-            return "value";
+            return repo.BuscarPorId(id);
         }
 
         // POST api/<RacaController>

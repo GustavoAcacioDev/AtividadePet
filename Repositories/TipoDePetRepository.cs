@@ -22,12 +22,41 @@ namespace AtividadePet.Repositories
 
         public TipoDePet BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "SELECT * FROM TipoDePet WHERE IdTipoDePet = @id ";
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader dados = cmd.ExecuteReader();
+
+            TipoDePet t = new TipoDePet();
+
+            while (dados.Read())
+            {
+                t.IdTipoDePet   = Convert.ToInt32(dados.GetValue(0));
+                t.Descricao     = dados.GetValue(1).ToString();
+            }
+
+            cmd.Connection = connection.Desconectar();
+            return t;
         }
 
         public TipoDePet Cadastrar(TipoDePet t)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText =
+                "INSERT INTO TipoDePEt (Descricao) " +
+                "VALUES" +
+                "(@descricao)";
+            cmd.Parameters.AddWithValue("@descricao", t.Descricao);
+
+            cmd.ExecuteNonQuery();
+
+            cmd.Connection = connection.Desconectar();
+
+            return t;
         }
 
         public void Excluir(int id)
@@ -50,8 +79,8 @@ namespace AtividadePet.Repositories
                 tipoPets.Add(
                     new TipoDePet()
                     {
-                        IdTipoDePet = Convert.ToInt32(dados.GetValue(0)),
-                        Descricao = dados.GetValue(1).ToString()
+                        IdTipoDePet     = Convert.ToInt32(dados.GetValue(0)),
+                        Descricao       = dados.GetValue(1).ToString()
                     }
                 );
             }
