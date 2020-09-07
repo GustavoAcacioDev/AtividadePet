@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AtividadePet.Domains;
+using AtividadePet.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,11 +14,14 @@ namespace AtividadePet.Controllers
     [ApiController]
     public class TipoDePetController : ControllerBase
     {
+
+        TipoDePetRepository repo = new TipoDePetRepository();
+
         // GET: api/<TipoDePetController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public List<TipoDePet> Get()
         {
-            return new string[] { "value1", "value2" };
+            return repo.LerTodos();
         }
 
         // GET api/<TipoDePetController>/5

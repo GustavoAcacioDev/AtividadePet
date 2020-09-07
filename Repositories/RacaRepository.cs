@@ -1,7 +1,9 @@
-﻿using AtividadePet.Domains;
+﻿using AtividadePet.Context;
+using AtividadePet.Domains;
 using AtividadePet.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,6 +11,11 @@ namespace AtividadePet.Repositories
 {
     public class RacaRepository : IRaca
     {
+
+        RacaContext connection = new RacaContext();
+
+        SqlCommand cmd = new SqlCommand();
+
         public Raca Alterar(int id, Raca r)
         {
             throw new NotImplementedException();
@@ -31,7 +38,30 @@ namespace AtividadePet.Repositories
 
         public List<Raca> LerTodos()
         {
-            throw new NotImplementedException();
+
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "SELECT * FROM Raca";
+
+            SqlDataReader dados = cmd.ExecuteReader();
+
+            List<Raca> racas = new List<Raca>();
+
+            while (dados.Read())
+            {
+                racas.Add(
+                    new Raca()
+                    {
+                        IdRaca = Convert.ToInt32(dados.GetValue(0)),
+                        Descricao = dados.GetValue(1).ToString(),
+                        IdTipoDePet = Convert.ToInt32(dados.GetValue(2))
+                    }
+                );
+            }
+
+            connection.Desconectar();
+
+            return racas;
         }
     }
 }

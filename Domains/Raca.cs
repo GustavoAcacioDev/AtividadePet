@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace AtividadePet.Domains
 {
-    public class Raca
+    public class Raca : TipoDePet
     {
         public int IdRaca { get; set; }
-        public string Descricao { get; set; }
+        public new string Descricao { get; set; }
 
-        public TipoDePet IdTipoDePet { get; set; }
+        public int IdTipoDePet { get; set; }
 
     }
 }
