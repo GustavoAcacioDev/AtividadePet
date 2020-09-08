@@ -17,7 +17,21 @@ namespace AtividadePet.Repositories
         SqlCommand cmd = new SqlCommand();
         public TipoDePet Alterar(int id, TipoDePet t)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "UPDATE TipoDePet SET " +
+                "Descricao = @descricao WHERE IdTipoDePet = @id ";
+
+
+            cmd.Parameters.AddWithValue("@descricao", t.Descricao);
+
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Desconectar();
+            return t;
         }
 
         public TipoDePet BuscarPorId(int id)
@@ -61,7 +75,14 @@ namespace AtividadePet.Repositories
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "DELETE FROM TipoDePet WHERE IdTipoDePet = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Desconectar();
         }
 
         public List<TipoDePet> LerTodos()

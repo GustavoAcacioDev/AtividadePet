@@ -9,7 +9,6 @@ namespace AtividadePet.Domains
     {
         public int IdRaca { get; set; }
         public new string Descricao { get; set; }
-
         public int IdTipoDePet { get; set; }
 
     }

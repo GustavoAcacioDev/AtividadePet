@@ -34,20 +34,23 @@ namespace AtividadePet.Controllers
 
         // POST api/<RacaController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Raca Post([FromBody] Raca r)
         {
+            return repo.Cadastrar(r);
         }
 
         // PUT api/<RacaController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public Raca Put(int id, [FromBody] Raca r)
         {
+            return repo.Alterar(id, r);
         }
 
         // DELETE api/<RacaController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+           repo.Excluir(id);
         }
     }
 }

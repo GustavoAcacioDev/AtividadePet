@@ -18,7 +18,21 @@ namespace AtividadePet.Repositories
 
         public Raca Alterar(int id, Raca r)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "UPDATE Raca SET " +
+                "Descricao = @descricao WHERE IdRaca = @id ";
+
+
+            cmd.Parameters.AddWithValue("@descricao", r.Descricao);
+
+
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Desconectar();
+            return r;
         }
 
         public Raca BuscarPorId(int id)
@@ -45,12 +59,31 @@ namespace AtividadePet.Repositories
 
         public Raca Cadastrar(Raca r)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText =
+                "INSERT INTO Raca (Descricao) " +
+                "VALUES" +
+                "(@descricao)";
+            cmd.Parameters.AddWithValue("@descricao", r.Descricao);
+
+            cmd.ExecuteNonQuery();
+
+            cmd.Connection = connection.Desconectar();
+
+            return r;
         }
 
         public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            cmd.Connection = connection.Conectar();
+
+            cmd.CommandText = "DELETE FROM Raca WHERE IdRaca = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+
+            cmd.ExecuteNonQuery();
+
+            connection.Desconectar();
         }
 
         public List<Raca> LerTodos()
@@ -63,7 +96,7 @@ namespace AtividadePet.Repositories
             SqlDataReader dados = cmd.ExecuteReader();
 
             List<Raca> racas = new List<Raca>();
-
+             
             while (dados.Read())
             {
                 racas.Add(

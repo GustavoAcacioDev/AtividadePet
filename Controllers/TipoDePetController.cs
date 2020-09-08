@@ -40,14 +40,16 @@ namespace AtividadePet.Controllers
 
         // PUT api/<TipoDePetController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public TipoDePet Put(int id, [FromBody] TipoDePet t)
         {
+            return repo.Alterar(id, t);
         }
 
         // DELETE api/<TipoDePetController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            repo.Excluir(id);
         }
     }
 }
